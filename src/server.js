@@ -59,7 +59,7 @@ const main = async () => {
    * @apiGroup System
    * @apiSuccess (Success 200) -
    */
-  app.get('/status', promiseHandler(() => {
+  app.get('/status', promiseHandler(async () => {
     return new Response(200)
   }))
 
