@@ -1,11 +1,11 @@
-const _ = require('lodash/fp')
-const express = require('express')
 const cors = require('cors')
-const uuid = require('uuid/v4')
-const { google } = require('googleapis')
-const { Firestore } = require('@google-cloud/firestore')
 const bodyParser = require('body-parser')
+const express = require('express')
+const { Firestore } = require('@google-cloud/firestore')
+const { google } = require('googleapis')
 const Joi = require('@hapi/joi')
+const _ = require('lodash/fp')
+const uuid = require('uuid/v4')
 const { promiseHandler, Response, validateInput } = require('./utils')
 
 

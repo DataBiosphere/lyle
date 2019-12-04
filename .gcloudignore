@@ -12,6 +12,6 @@
 # below:
 .git
 .gitignore
+#!include:.gitignore
 
-# Node.js dependencies:
-node_modules/
+!/docs/
