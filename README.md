@@ -33,22 +33,22 @@ Download a key for the app engine default service account, `terra-lyle@appspot.g
 
 Install deps
 ```sh
-npm install
+yarn install
 ```
 
 Build docs
 ```sh
-npm run generate-docs
+yarn generate-docs
 ```
 
 Start a dev server on port 8080 with auto-reload
 ```sh
-GCP_PROJECT=terra-lyle GOOGLE_APPLICATION_CREDENTIALS=<path-to-key-file> npm run start-dev
+GCP_PROJECT=terra-lyle GOOGLE_APPLICATION_CREDENTIALS=<path-to-key-file> yarn start-dev
 ```
 
 Lint
 ```sh
-npm run lint
+yarn lint
 ```
 
 Deploy
