@@ -5,7 +5,7 @@ const { Firestore } = require('@google-cloud/firestore')
 const { google } = require('googleapis')
 const Joi = require('@hapi/joi')
 const _ = require('lodash/fp')
-const uuid = require('uuid/v4')
+const { v4: uuid } = require('uuid')
 const { promiseHandler, Response, validateInput } = require('./utils')
 
 
