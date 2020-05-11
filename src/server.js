@@ -28,7 +28,7 @@ const main = async () => {
 
   const projectId = 'terra-test-users-1'
 
-  const deleteUser = async email => {
+  const deleteUser = async (email) => {
     try {
       await iam.projects.serviceAccounts.delete({
         name: `projects/${projectId}/serviceAccounts/${email}`
@@ -93,7 +93,7 @@ const main = async () => {
   app.post('/api/delete', promiseHandler(withAuth(async req => {
     validateInput(req.body, Joi.object().keys({ email: emailSchema }))
     const { email } = req.body
-    await deleteUser(email)
+    await deleteUser(email);
     return new Response(200, {})
   })))
 
