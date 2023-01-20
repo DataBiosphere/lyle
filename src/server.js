@@ -7,6 +7,7 @@ const Joi = require('@hapi/joi')
 const _ = require('lodash/fp')
 const { v4: uuid } = require('uuid')
 const { promiseHandler, Response, validateInput } = require('./utils')
+const pRetry = require('p-retry')
 
 
 const main = async () => {
@@ -124,10 +125,17 @@ const main = async () => {
   app.post('/api/token', promiseHandler(withAuth(async req => {
     validateInput(req.body, Joi.object().keys({ email: emailSchema }))
     const { email } = req.body
-    const { data: { accessToken } } = await iamcredentials.projects.serviceAccounts.generateAccessToken({
-      name: `projects/-/serviceAccounts/${email}`,
-      requestBody: { scope: ['profile', 'email', 'openid'] }
-    })
+    // Retries are in addition to the initial attempt. Retry 4 times for 5 total attempts.
+    const { data: { accessToken } } = await pRetry(n => {
+      if (n > 1) {
+        // Attempt count is 1-based, so renumber it as retry count.
+        console.log(`(${n-1}) Retrying attempt to fetch access token...`)
+      }
+      return iamcredentials.projects.serviceAccounts.generateAccessToken({
+        name: `projects/-/serviceAccounts/${email}`,
+        requestBody: { scope: ['profile', 'email', 'openid'] }
+      })
+    }, { retries: 4 })
     return new Response(200, { accessToken })
   })))
 
